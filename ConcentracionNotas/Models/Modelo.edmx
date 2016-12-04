@@ -1,0 +1,369 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ModeloModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="ModeloModelStoreContainer">
+          <EntitySet Name="Alumno" EntityType="ModeloModel.Store.Alumno" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Asignatura" EntityType="ModeloModel.Store.Asignatura" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Concentracion" EntityType="ModeloModel.Store.Concentracion" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Nota" EntityType="ModeloModel.Store.Nota" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Profesor" EntityType="ModeloModel.Store.Profesor" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Asignatura_Profesor" Association="ModeloModel.Store.FK_Asignatura_Profesor">
+            <End Role="Profesor" EntitySet="Profesor" />
+            <End Role="Asignatura" EntitySet="Asignatura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Concentracion_Alumno" Association="ModeloModel.Store.FK_Concentracion_Alumno">
+            <End Role="Alumno" EntitySet="Alumno" />
+            <End Role="Concentracion" EntitySet="Concentracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Concentracion_Asignatura" Association="ModeloModel.Store.FK_Concentracion_Asignatura">
+            <End Role="Asignatura" EntitySet="Asignatura" />
+            <End Role="Concentracion" EntitySet="Concentracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Nota_Concentracion" Association="ModeloModel.Store.FK_Nota_Concentracion">
+            <End Role="Concentracion" EntitySet="Concentracion" />
+            <End Role="Nota" EntitySet="Nota" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Alumno">
+          <Key>
+            <PropertyRef Name="AlumnoId" />
+          </Key>
+          <Property Name="AlumnoId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AlumnoRut" Type="int" />
+          <Property Name="AlumnoRutDigito" Type="char" MaxLength="1" />
+          <Property Name="AlumnoNombre" Type="varchar" MaxLength="50" />
+          <Property Name="AlumnoApellido" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Asignatura">
+          <Key>
+            <PropertyRef Name="AsignaturaId" />
+          </Key>
+          <Property Name="AsignaturaId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProfesorId" Type="int" Nullable="false" />
+          <Property Name="AsignaturaNombre" Type="varchar" MaxLength="50" />
+          <Property Name="AsignaturaTipo" Type="smallint" />
+        </EntityType>
+        <EntityType Name="Concentracion">
+          <Key>
+            <PropertyRef Name="ConcentFolio" />
+          </Key>
+          <Property Name="ConcentFolio" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AsignaturaId" Type="int" Nullable="false" />
+          <Property Name="AlumnoId" Type="int" Nullable="false" />
+          <Property Name="ConcentPromedio" Type="decimal" Precision="3" Scale="2" />
+          <Property Name="ConcentSituacion" Type="smallint" />
+          <Property Name="ConcentAsistencia" Type="smallint" />
+        </EntityType>
+        <EntityType Name="Nota">
+          <Key>
+            <PropertyRef Name="NotaId" />
+          </Key>
+          <Property Name="NotaId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ConcentFolio" Type="int" Nullable="false" />
+          <Property Name="NotaNumero" Type="smallint" />
+          <Property Name="NotaPonderacion" Type="smallint" />
+          <Property Name="NotaObtenido" Type="decimal" Precision="3" Scale="2" />
+        </EntityType>
+        <EntityType Name="Profesor">
+          <Key>
+            <PropertyRef Name="ProfesorId" />
+          </Key>
+          <Property Name="ProfesorId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProfesorRut" Type="int" />
+          <Property Name="ProfesorRutDigito" Type="char" MaxLength="1" />
+          <Property Name="ProfesorNombre" Type="varchar" MaxLength="50" />
+          <Property Name="ProfesorApellido" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Asignatura_Profesor">
+          <End Role="Profesor" Type="ModeloModel.Store.Profesor" Multiplicity="1" />
+          <End Role="Asignatura" Type="ModeloModel.Store.Asignatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profesor">
+              <PropertyRef Name="ProfesorId" />
+            </Principal>
+            <Dependent Role="Asignatura">
+              <PropertyRef Name="ProfesorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Concentracion_Alumno">
+          <End Role="Alumno" Type="ModeloModel.Store.Alumno" Multiplicity="1" />
+          <End Role="Concentracion" Type="ModeloModel.Store.Concentracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alumno">
+              <PropertyRef Name="AlumnoId" />
+            </Principal>
+            <Dependent Role="Concentracion">
+              <PropertyRef Name="AlumnoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Concentracion_Asignatura">
+          <End Role="Asignatura" Type="ModeloModel.Store.Asignatura" Multiplicity="1" />
+          <End Role="Concentracion" Type="ModeloModel.Store.Concentracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asignatura">
+              <PropertyRef Name="AsignaturaId" />
+            </Principal>
+            <Dependent Role="Concentracion">
+              <PropertyRef Name="AsignaturaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Nota_Concentracion">
+          <End Role="Concentracion" Type="ModeloModel.Store.Concentracion" Multiplicity="1" />
+          <End Role="Nota" Type="ModeloModel.Store.Nota" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Concentracion">
+              <PropertyRef Name="ConcentFolio" />
+            </Principal>
+            <Dependent Role="Nota">
+              <PropertyRef Name="ConcentFolio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ModeloModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="ModeloEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Alumno" EntityType="ModeloModel.Alumno" />
+          <EntitySet Name="Asignatura" EntityType="ModeloModel.Asignatura" />
+          <EntitySet Name="Concentracion" EntityType="ModeloModel.Concentracion" />
+          <EntitySet Name="Nota" EntityType="ModeloModel.Nota" />
+          <EntitySet Name="Profesor" EntityType="ModeloModel.Profesor" />
+          <AssociationSet Name="FK_Concentracion_Alumno" Association="ModeloModel.FK_Concentracion_Alumno">
+            <End Role="Alumno" EntitySet="Alumno" />
+            <End Role="Concentracion" EntitySet="Concentracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Asignatura_Profesor" Association="ModeloModel.FK_Asignatura_Profesor">
+            <End Role="Profesor" EntitySet="Profesor" />
+            <End Role="Asignatura" EntitySet="Asignatura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Concentracion_Asignatura" Association="ModeloModel.FK_Concentracion_Asignatura">
+            <End Role="Asignatura" EntitySet="Asignatura" />
+            <End Role="Concentracion" EntitySet="Concentracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Nota_Concentracion" Association="ModeloModel.FK_Nota_Concentracion">
+            <End Role="Concentracion" EntitySet="Concentracion" />
+            <End Role="Nota" EntitySet="Nota" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Alumno">
+          <Key>
+            <PropertyRef Name="AlumnoId" />
+          </Key>
+          <Property Name="AlumnoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AlumnoRut" Type="Int32" Nullable="false" />
+          <Property Name="AlumnoRutDigito" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="AlumnoNombre" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="AlumnoApellido" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Concentracion" Relationship="ModeloModel.FK_Concentracion_Alumno" FromRole="Alumno" ToRole="Concentracion" />
+        </EntityType>
+        <EntityType Name="Asignatura">
+          <Key>
+            <PropertyRef Name="AsignaturaId" />
+          </Key>
+          <Property Name="AsignaturaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProfesorId" Type="Int32" Nullable="false" />
+          <Property Name="AsignaturaNombre" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="AsignaturaTipo" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Profesor" Relationship="ModeloModel.FK_Asignatura_Profesor" FromRole="Asignatura" ToRole="Profesor" />
+          <NavigationProperty Name="Concentracion" Relationship="ModeloModel.FK_Concentracion_Asignatura" FromRole="Asignatura" ToRole="Concentracion" />
+        </EntityType>
+        <EntityType Name="Concentracion">
+          <Key>
+            <PropertyRef Name="ConcentFolio" />
+          </Key>
+          <Property Name="ConcentFolio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AsignaturaId" Type="Int32" Nullable="false" />
+          <Property Name="AlumnoId" Type="Int32" Nullable="false" />
+          <Property Name="ConcentPromedio" Type="Decimal" Precision="3" Scale="2" />
+          <Property Name="ConcentSituacion" Type="Int16" Nullable="false" />
+          <Property Name="ConcentAsistencia" Type="Int16" />
+          <NavigationProperty Name="Alumno" Relationship="ModeloModel.FK_Concentracion_Alumno" FromRole="Concentracion" ToRole="Alumno" />
+          <NavigationProperty Name="Asignatura" Relationship="ModeloModel.FK_Concentracion_Asignatura" FromRole="Concentracion" ToRole="Asignatura" />
+          <NavigationProperty Name="Nota" Relationship="ModeloModel.FK_Nota_Concentracion" FromRole="Concentracion" ToRole="Nota" />
+        </EntityType>
+        <EntityType Name="Nota">
+          <Key>
+            <PropertyRef Name="NotaId" />
+          </Key>
+          <Property Name="NotaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ConcentFolio" Type="Int32" Nullable="false" />
+          <Property Name="NotaNumero" Type="Int16" Nullable="false" />
+          <Property Name="NotaPonderacion" Type="Int16" Nullable="false" />
+          <Property Name="NotaObtenido" Type="Decimal" Precision="3" Scale="2" />
+          <NavigationProperty Name="Concentracion" Relationship="ModeloModel.FK_Nota_Concentracion" FromRole="Nota" ToRole="Concentracion" />
+        </EntityType>
+        <EntityType Name="Profesor">
+          <Key>
+            <PropertyRef Name="ProfesorId" />
+          </Key>
+          <Property Name="ProfesorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProfesorRut" Type="Int32" />
+          <Property Name="ProfesorRutDigito" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="ProfesorNombre" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="ProfesorApellido" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Asignatura" Relationship="ModeloModel.FK_Asignatura_Profesor" FromRole="Profesor" ToRole="Asignatura" />
+        </EntityType>
+        <Association Name="FK_Concentracion_Alumno">
+          <End Role="Alumno" Type="ModeloModel.Alumno" Multiplicity="1" />
+          <End Role="Concentracion" Type="ModeloModel.Concentracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alumno">
+              <PropertyRef Name="AlumnoId" />
+            </Principal>
+            <Dependent Role="Concentracion">
+              <PropertyRef Name="AlumnoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Asignatura_Profesor">
+          <End Role="Profesor" Type="ModeloModel.Profesor" Multiplicity="1" />
+          <End Role="Asignatura" Type="ModeloModel.Asignatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profesor">
+              <PropertyRef Name="ProfesorId" />
+            </Principal>
+            <Dependent Role="Asignatura">
+              <PropertyRef Name="ProfesorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Concentracion_Asignatura">
+          <End Role="Asignatura" Type="ModeloModel.Asignatura" Multiplicity="1" />
+          <End Role="Concentracion" Type="ModeloModel.Concentracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asignatura">
+              <PropertyRef Name="AsignaturaId" />
+            </Principal>
+            <Dependent Role="Concentracion">
+              <PropertyRef Name="AsignaturaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Nota_Concentracion">
+          <End Role="Concentracion" Type="ModeloModel.Concentracion" Multiplicity="1" />
+          <End Role="Nota" Type="ModeloModel.Nota" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Concentracion">
+              <PropertyRef Name="ConcentFolio" />
+            </Principal>
+            <Dependent Role="Nota">
+              <PropertyRef Name="ConcentFolio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModeloModelStoreContainer" CdmEntityContainer="ModeloEntities">
+          <EntitySetMapping Name="Alumno">
+            <EntityTypeMapping TypeName="ModeloModel.Alumno">
+              <MappingFragment StoreEntitySet="Alumno">
+                <ScalarProperty Name="AlumnoId" ColumnName="AlumnoId" />
+                <ScalarProperty Name="AlumnoRut" ColumnName="AlumnoRut" />
+                <ScalarProperty Name="AlumnoRutDigito" ColumnName="AlumnoRutDigito" />
+                <ScalarProperty Name="AlumnoNombre" ColumnName="AlumnoNombre" />
+                <ScalarProperty Name="AlumnoApellido" ColumnName="AlumnoApellido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Asignatura">
+            <EntityTypeMapping TypeName="ModeloModel.Asignatura">
+              <MappingFragment StoreEntitySet="Asignatura">
+                <ScalarProperty Name="AsignaturaId" ColumnName="AsignaturaId" />
+                <ScalarProperty Name="ProfesorId" ColumnName="ProfesorId" />
+                <ScalarProperty Name="AsignaturaNombre" ColumnName="AsignaturaNombre" />
+                <ScalarProperty Name="AsignaturaTipo" ColumnName="AsignaturaTipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Concentracion">
+            <EntityTypeMapping TypeName="ModeloModel.Concentracion">
+              <MappingFragment StoreEntitySet="Concentracion">
+                <ScalarProperty Name="ConcentFolio" ColumnName="ConcentFolio" />
+                <ScalarProperty Name="AsignaturaId" ColumnName="AsignaturaId" />
+                <ScalarProperty Name="AlumnoId" ColumnName="AlumnoId" />
+                <ScalarProperty Name="ConcentPromedio" ColumnName="ConcentPromedio" />
+                <ScalarProperty Name="ConcentSituacion" ColumnName="ConcentSituacion" />
+                <ScalarProperty Name="ConcentAsistencia" ColumnName="ConcentAsistencia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Nota">
+            <EntityTypeMapping TypeName="ModeloModel.Nota">
+              <MappingFragment StoreEntitySet="Nota">
+                <ScalarProperty Name="NotaId" ColumnName="NotaId" />
+                <ScalarProperty Name="ConcentFolio" ColumnName="ConcentFolio" />
+                <ScalarProperty Name="NotaNumero" ColumnName="NotaNumero" />
+                <ScalarProperty Name="NotaPonderacion" ColumnName="NotaPonderacion" />
+                <ScalarProperty Name="NotaObtenido" ColumnName="NotaObtenido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profesor">
+            <EntityTypeMapping TypeName="ModeloModel.Profesor">
+              <MappingFragment StoreEntitySet="Profesor">
+                <ScalarProperty Name="ProfesorId" ColumnName="ProfesorId" />
+                <ScalarProperty Name="ProfesorRut" ColumnName="ProfesorRut" />
+                <ScalarProperty Name="ProfesorRutDigito" ColumnName="ProfesorRutDigito" />
+                <ScalarProperty Name="ProfesorNombre" ColumnName="ProfesorNombre" />
+                <ScalarProperty Name="ProfesorApellido" ColumnName="ProfesorApellido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Modelo">
+        <EntityTypeShape EntityType="ModeloModel.Alumno" Width="1.5" PointX="3" PointY="5.25" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModeloModel.Asignatura" Width="1.5" PointX="3" PointY="1.25" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModeloModel.Concentracion" Width="1.5" PointX="5.25" PointY="1" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModeloModel.Nota" Width="1.5" PointX="7.5" PointY="1.25" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModeloModel.Profesor" Width="1.5" PointX="0.75" PointY="1.25" Height="2.1725878906249996" IsExpanded="true" />
+        <AssociationConnector Association="ModeloModel.FK_Concentracion_Alumno" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="6.3362939453125" />
+          <ConnectorPoint PointX="6" PointY="6.3362939453125" />
+          <ConnectorPoint PointX="6" PointY="3.7494921874999996" />
+        </AssociationConnector>
+        <AssociationConnector Association="ModeloModel.FK_Asignatura_Profesor" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.3362939453125" />
+          <ConnectorPoint PointX="3" PointY="2.3362939453125" />
+        </AssociationConnector>
+        <AssociationConnector Association="ModeloModel.FK_Concentracion_Asignatura" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="2.3362939453125" />
+          <ConnectorPoint PointX="5.25" PointY="2.3362939453125" />
+        </AssociationConnector>
+        <AssociationConnector Association="ModeloModel.FK_Nota_Concentracion" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="2.3362939453125" />
+          <ConnectorPoint PointX="7.5" PointY="2.3362939453125" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

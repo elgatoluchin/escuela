@@ -1,0 +1,61 @@
+﻿@model ConcentracionNotas.Models.Alumno
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Alumno</legend>
+
+        @Html.HiddenFor(model => model.AlumnoId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AlumnoRut)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AlumnoRut)
+            @Html.ValidationMessageFor(model => model.AlumnoRut)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AlumnoRutDigito)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AlumnoRutDigito)
+            @Html.ValidationMessageFor(model => model.AlumnoRutDigito)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AlumnoNombre)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AlumnoNombre)
+            @Html.ValidationMessageFor(model => model.AlumnoNombre)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AlumnoApellido)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AlumnoApellido)
+            @Html.ValidationMessageFor(model => model.AlumnoApellido)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

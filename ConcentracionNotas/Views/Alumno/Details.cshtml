@@ -1,0 +1,43 @@
+﻿@model ConcentracionNotas.Models.Alumno
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Alumno</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.AlumnoRut)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AlumnoRut)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.AlumnoRutDigito)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AlumnoRutDigito)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.AlumnoNombre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AlumnoNombre)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.AlumnoApellido)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AlumnoApellido)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.AlumnoId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

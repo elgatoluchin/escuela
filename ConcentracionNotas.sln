@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConcentracionNotas", "ConcentracionNotas\ConcentracionNotas.csproj", "{8F63AB5C-A39A-4737-8268-1924FD46C450}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inacap.Dominio.Nucleo", "Inacap.Dominio.Nucleo\Inacap.Dominio.Nucleo.csproj", "{4D7EB617-5D97-4409-A840-A4B02155343A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inacap.Infraestructura.Utilidad", "Inacap.Infraestructura.Utilidad\Inacap.Infraestructura.Utilidad.csproj", "{114FE2BE-CF90-43A8-94E2-650DED4FF52F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8F63AB5C-A39A-4737-8268-1924FD46C450}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F63AB5C-A39A-4737-8268-1924FD46C450}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F63AB5C-A39A-4737-8268-1924FD46C450}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F63AB5C-A39A-4737-8268-1924FD46C450}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D7EB617-5D97-4409-A840-A4B02155343A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D7EB617-5D97-4409-A840-A4B02155343A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D7EB617-5D97-4409-A840-A4B02155343A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D7EB617-5D97-4409-A840-A4B02155343A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{114FE2BE-CF90-43A8-94E2-650DED4FF52F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{114FE2BE-CF90-43A8-94E2-650DED4FF52F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{114FE2BE-CF90-43A8-94E2-650DED4FF52F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{114FE2BE-CF90-43A8-94E2-650DED4FF52F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
