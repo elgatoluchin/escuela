@@ -1,45 +1,32 @@
 ﻿@model IEnumerable<ConcentracionNotas.Models.Asignatura>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lista de Asignaturas";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Agregar Asignatura", "Create")
 </p>
-<table>
+<table class="table table-striped table-bordered table-hover">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Profesor.ProfesorRutDigito)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AsignaturaNombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AsignaturaTipo)
-        </th>
+        <th>RUT Profesor</th>
+        <th>@Html.DisplayNameFor(model => model.AsignaturaNombre)</th>
+        <th>@Html.DisplayNameFor(model => model.AsignaturaTipo)</th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        <td>@String.Format("{0}-{1}", item.Profesor.ProfesorRut, item.Profesor.ProfesorRutDigito)</td>
+        <td>@Html.DisplayFor(modelItem => item.AsignaturaNombre)</td>
+        <td>@Html.DisplayFor(modelItem => item.AsignaturaTipo)</td>
         <td>
-            @Html.DisplayFor(modelItem => item.Profesor.ProfesorRutDigito)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AsignaturaNombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AsignaturaTipo)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.AsignaturaId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.AsignaturaId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.AsignaturaId })
+            @Html.ActionLink("Editar", "Edit", new { id = item.AsignaturaId }) |
+            @Html.ActionLink("Detalles", "Details", new { id = item.AsignaturaId }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id = item.AsignaturaId })
         </td>
     </tr>
 }
-
 </table>

@@ -1,51 +1,32 @@
 ﻿@model IEnumerable<ConcentracionNotas.Models.Alumno>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lista de alumnos";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Agregar Alumno", "Create")
 </p>
-<table>
+<table class="table table-striped table-bordered table-hover">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.AlumnoRut)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AlumnoRutDigito)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AlumnoNombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AlumnoApellido)
-        </th>
+        <th>RUT</th>
+        <th>@Html.DisplayNameFor(model => model.AlumnoNombre)</th>
+        <th>@Html.DisplayNameFor(model => model.AlumnoApellido)</th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        <td>@String.Format("{0}-{1}", item.AlumnoRut, item.AlumnoRutDigito)</td>
+        <td>@Html.DisplayFor(modelItem => item.AlumnoNombre)</td>
+        <td>@Html.DisplayFor(modelItem => item.AlumnoApellido)</td>
         <td>
-            @Html.DisplayFor(modelItem => item.AlumnoRut)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AlumnoRutDigito)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AlumnoNombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AlumnoApellido)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.AlumnoId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.AlumnoId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.AlumnoId })
+            @Html.ActionLink("Editar", "Edit", new { id = item.AlumnoId }) |
+            @Html.ActionLink("Detalles", "Details", new { id = item.AlumnoId }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id = item.AlumnoId })
         </td>
     </tr>
 }
-
 </table>

@@ -131,6 +131,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AlumnoMetadata.cs" />
+    <Compile Include="Models\AlumnoModelo.cs" />
+    <Compile Include="Models\AsignaturaMetadata.cs" />
     <Compile Include="Models\Modelo.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
