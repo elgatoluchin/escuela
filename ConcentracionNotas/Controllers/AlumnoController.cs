@@ -9,6 +9,9 @@ using ConcentracionNotas.Models;
 
 namespace ConcentracionNotas.Controllers
 {
+    /// <summary>
+    /// hola
+    /// </summary>
     public class AlumnoController : Controller
     {
         private ModeloEntities db = new ModeloEntities();
