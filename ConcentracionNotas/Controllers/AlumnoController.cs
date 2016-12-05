@@ -17,7 +17,7 @@ namespace ConcentracionNotas.Controllers
         private ModeloEntities db = new ModeloEntities();
 
         //
-        // GET: /Alumno/
+        // GET: /Alumno/prueba
 
         public ActionResult Index()
         {
