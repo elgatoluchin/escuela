@@ -126,7 +126,9 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AlumnoController.cs" />
     <Compile Include="Controllers\AsignaturaController.cs" />
+    <Compile Include="Controllers\ConcentracionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NotaController.cs" />
     <Compile Include="Controllers\ProfesorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -134,11 +136,16 @@
     <Compile Include="Models\AlumnoMetadata.cs" />
     <Compile Include="Models\AlumnoModelo.cs" />
     <Compile Include="Models\AsignaturaMetadata.cs" />
+    <Compile Include="Models\AsignaturaModelo.cs" />
+    <Compile Include="Models\ConcentracionMetadata.cs" />
+    <Compile Include="Models\ConcentracionModelo.cs" />
     <Compile Include="Models\Modelo.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Modelo.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\NotaMetadata.cs" />
+    <Compile Include="Models\NotaModelo.cs" />
     <Compile Include="Models\ProfesorMetadata.cs" />
     <Compile Include="Models\ProfesorModelo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -215,6 +222,16 @@
     <Content Include="Views\Asignatura\Edit.cshtml" />
     <Content Include="Views\Asignatura\Delete.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Concentracion\Index.cshtml" />
+    <Content Include="Views\Concentracion\Details.cshtml" />
+    <Content Include="Views\Concentracion\Create.cshtml" />
+    <Content Include="Views\Concentracion\Edit.cshtml" />
+    <Content Include="Views\Concentracion\Delete.cshtml" />
+    <Content Include="Views\Nota\Index.cshtml" />
+    <Content Include="Views\Nota\Details.cshtml" />
+    <Content Include="Views\Nota\Create.cshtml" />
+    <Content Include="Views\Nota\Edit.cshtml" />
+    <Content Include="Views\Nota\Delete.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

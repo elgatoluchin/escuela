@@ -1,0 +1,50 @@
+﻿@model ConcentracionNotas.Models.Concentracion
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Concentracion</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Asignatura.AsignaturaNombre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Asignatura.AsignaturaNombre)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Alumno.AlumnoRutDigito)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Alumno.AlumnoRutDigito)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ConcentPromedio)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ConcentPromedio)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ConcentSituacion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ConcentSituacion)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ConcentAsistencia)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ConcentAsistencia)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ConcentFolio }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

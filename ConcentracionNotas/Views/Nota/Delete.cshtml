@@ -1,0 +1,46 @@
+﻿@model ConcentracionNotas.Models.Nota
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Nota</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Concentracion.ConcentFolio)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Concentracion.ConcentFolio)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.NotaNumero)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NotaNumero)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.NotaPonderacion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NotaPonderacion)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.NotaObtenido)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NotaObtenido)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
