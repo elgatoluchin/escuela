@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ConcentracionNotas.Models.Nota>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Concentracion.ConcentFolio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NotaNumero)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NotaPonderacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NotaObtenido)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Concentracion.ConcentFolio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NotaNumero)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NotaPonderacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NotaObtenido)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.NotaId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.NotaId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.NotaId })
+        </td>
+    </tr>
+}
+
+</table>

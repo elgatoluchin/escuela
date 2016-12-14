@@ -1,0 +1,57 @@
+﻿@model IEnumerable<ConcentracionNotas.Models.Concentracion>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Asignatura.AsignaturaNombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Alumno.AlumnoRutDigito)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ConcentPromedio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ConcentSituacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ConcentAsistencia)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Asignatura.AsignaturaNombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Alumno.AlumnoRutDigito)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ConcentPromedio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ConcentSituacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ConcentAsistencia)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ConcentFolio }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ConcentFolio }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ConcentFolio })
+        </td>
+    </tr>
+}
+
+</table>
