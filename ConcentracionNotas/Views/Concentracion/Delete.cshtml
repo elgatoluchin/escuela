@@ -1,53 +1,41 @@
 ﻿@model ConcentracionNotas.Models.Concentracion
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Eliminar Concentración de Notas";
 }
 
-<h2>Delete</h2>
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <h5>@ViewBag.Title<small></small></h5>
+    </div>
+    <div class="ibox-content">
 
-<h3>Are you sure you want to delete this?</h3>
-<fieldset>
-    <legend>Concentracion</legend>
+        <div class="alert alert-danger" role="alert">
+            ¿Estás seguro que quieres eliminar esto?
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Asignatura.AsignaturaNombre)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Asignatura.AsignaturaNombre)
-    </div>
+        <div class="display-label" style="display: none;">
+            @Html.DisplayNameFor(model => model.Asignatura.AsignaturaNombre)
+            @Html.DisplayFor(model => model.Asignatura.AsignaturaNombre)
+            @Html.DisplayNameFor(model => model.Alumno.AlumnoRutDigito)
+            @Html.DisplayFor(model => model.Alumno.AlumnoRutDigito)
+            @Html.DisplayNameFor(model => model.ConcentPromedio)
+            @Html.DisplayFor(model => model.ConcentPromedio)
+            @Html.DisplayNameFor(model => model.ConcentSituacion)
+            @Html.DisplayFor(model => model.ConcentSituacion)
+            @Html.DisplayNameFor(model => model.ConcentAsistencia)
+            @Html.DisplayFor(model => model.ConcentAsistencia)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Alumno.AlumnoRutDigito)
+        @using (Html.BeginForm())
+        {
+            <div class="hr-line-dashed"></div>
+            <div class="form-group">
+                <div class="text-right">
+                    @Html.ActionLink("Cancelar", "Index", null, new {@class = "btn btn-white"})
+                    <input type="submit" class="btn btn-danger" value="Eliminar"/>
+                </div>
+            </div>
+        }
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Alumno.AlumnoRutDigito)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.ConcentPromedio)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ConcentPromedio)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.ConcentSituacion)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ConcentSituacion)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.ConcentAsistencia)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ConcentAsistencia)
-    </div>
-</fieldset>
-@using (Html.BeginForm()) {
-    <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
-}
+</div>
