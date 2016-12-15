@@ -1,19 +1,25 @@
 ﻿@model ConcentracionNotas.Models.Concentracion
 
 @{
-    ViewBag.Title = "Edit";
-}
+    ViewBag.Title = "Editar";
 
-<h2>Edit</h2>
+    List<SelectListItem> asistenciaItems = new List<SelectListItem>();
+
+    for (var i = 0; i < 100; i = i + 2)
+    {
+        asistenciaItems.Add(new SelectListItem() {Text = (i + 2).ToString() + "%", Value = (i + 2).ToString()});
+    }
+}
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Concentracion</legend>
+        <legend>Concentración de Notas</legend>
 
         @Html.HiddenFor(model => model.ConcentFolio)
 
+        @*
         <div class="editor-label">
             @Html.LabelFor(model => model.AsignaturaId, "Asignatura")
         </div>
@@ -45,24 +51,22 @@
             @Html.EditorFor(model => model.ConcentSituacion)
             @Html.ValidationMessageFor(model => model.ConcentSituacion)
         </div>
+        *@
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ConcentAsistencia)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ConcentAsistencia)
-            @Html.ValidationMessageFor(model => model.ConcentAsistencia)
+        <div class="form-group">
+            @Html.LabelFor(model => model.ConcentAsistencia, null, new { @class = "col-sm-3 control-label" })
+            <div>
+                @Html.DropDownListFor(model => model.ConcentAsistencia, asistenciaItems, "Seleccione", new { @class = "form-control" })
+                <span class="help-block">@Html.ValidationMessageFor(model => model.ConcentAsistencia)</span>
+            </div>
         </div>
 
-        <p>
-            <input type="submit" value="Save" />
-        </p>
+        <div class="text-right">
+            <input type="submit" class="btn btn-primary" value="Guardar"/>
+             @Html.ActionLink("Cancelar", "Index", null, new {@class = "btn"})
+        </div>
     </fieldset>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

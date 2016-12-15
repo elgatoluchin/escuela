@@ -22,8 +22,9 @@ namespace ConcentracionNotas
 
             bundles.Add(new StyleBundle("~/Content/bootstrapcss").Include(
                         "~/Content/bootstrap.min.css",
-                        "~/Content/bootstrap-theme.min.css",
-                        "~/Content/dashboard.css"));
+                        
+                        "~/Content/dashboard.css",
+                        "~/Content/font-awesome.css"));
         }
     }
 }

@@ -1,39 +1,41 @@
 ﻿@model ConcentracionNotas.Models.Asignatura
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Eliminar Asignatura";
 }
 
-<h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
-<fieldset>
-    <legend>Asignatura</legend>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Profesor.ProfesorRutDigito)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Profesor.ProfesorRutDigito)
-    </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.AsignaturaNombre)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.AsignaturaNombre)
-    </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.AsignaturaTipo)
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <h5>@ViewBag.Title<small></small></h5>
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.AsignaturaTipo)
+    <div class="ibox-content">
+
+        <div class="alert alert-danger" role="alert">
+            ¿Estás seguro que quieres eliminar esto?
+        </div>
+
+        <div class="display-label" style="display: none;">
+            @Html.DisplayNameFor(model => model.Profesor.ProfesorRutDigito)
+            @Html.DisplayFor(model => model.Profesor.ProfesorRutDigito)
+            @Html.DisplayNameFor(model => model.AsignaturaNombre)
+            @Html.DisplayFor(model => model.AsignaturaNombre)
+            @Html.DisplayNameFor(model => model.AsignaturaTipo)
+            @Html.DisplayFor(model => model.AsignaturaTipo)
+        </div>
+
+        @using (Html.BeginForm())
+        {
+            <div class="hr-line-dashed"></div>
+            <div class="form-group">
+                <div class="text-right">
+                    @Html.ActionLink("Cancelar", "Index", null, new {@class = "btn btn-white"})
+                    <input type="submit" class="btn btn-danger" value="Eliminar"/>
+                </div>
+            </div>
+        }
     </div>
-</fieldset>
-@using (Html.BeginForm()) {
-    <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
-}
+</div>

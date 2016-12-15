@@ -1,51 +1,61 @@
 ﻿@model ConcentracionNotas.Models.Asignatura
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editar Asignatura";
+
+    List<SelectListItem> tiposItems = new List<SelectListItem>()
+    {
+        new SelectListItem() {Text = "E-learning", Value = "1"},
+        new SelectListItem() {Text = "Lectiva", Value = "2"},
+        new SelectListItem() {Text = "Práctica", Value = "3"},
+        new SelectListItem() {Text = "Semi Presencial / B-learning", Value = "3"}
+    };
 }
 
-<h2>Edit</h2>
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <h5>@ViewBag.Title<small></small></h5>
+    </div>
+    <div class="ibox-content">
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
 
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.AsignaturaId)
 
-    <fieldset>
-        <legend>Asignatura</legend>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ProfesorId, null, new { @class = "control-label" })
+                <div class="-col-sm-9">
+                    @Html.DropDownList("ProfesorId", (IEnumerable<SelectListItem>)ViewBag.ProfesorId, new { @class = "form-control" })
+                    <span class="help-block">@Html.ValidationMessageFor(model => model.ProfesorId)</span>
+                </div>
+            </div>
 
-        @Html.HiddenFor(model => model.AsignaturaId)
+            <div class="form-group">
+                @Html.LabelFor(model => model.AsignaturaNombre, null, new { @class = "control-label" })
+                <div class="-col-sm-9">
+                    @Html.TextBoxFor(model => model.AsignaturaNombre, null, new { @class = "form-control" })
+                    <span class="help-block">@Html.ValidationMessageFor(model => model.AsignaturaNombre)</span>
+                </div>
+            </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ProfesorId, "Profesor")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("ProfesorId", String.Empty)
-            @Html.ValidationMessageFor(model => model.ProfesorId)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.AsignaturaNombre)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.AsignaturaNombre)
-            @Html.ValidationMessageFor(model => model.AsignaturaNombre)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.AsignaturaTipo)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.AsignaturaTipo)
-            @Html.ValidationMessageFor(model => model.AsignaturaTipo)
-        </div>
-
-        <p>
-            <input type="submit" value="Save" />
-        </p>
-    </fieldset>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+            <div class="form-group">
+                @Html.LabelFor(model => model.AsignaturaTipo, null, new { @class = "control-label" })
+                <div class="-col-sm-9">
+                    @Html.DropDownListFor(model => model.AsignaturaTipo, tiposItems, "Seleccione", new { @class = "form-control" })
+                    <span class="help-block">@Html.ValidationMessageFor(model => model.AsignaturaTipo)</span>
+                </div>
+            </div>
+            
+		    <div class="hr-line-dashed"></div>
+		    <div class="form-group">
+		        <div class="text-right">
+		            @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-white" })
+		            <input type="submit" class="btn btn-primary" value="Guardar"/>
+		        </div>
+		    </div>
+        }
+    </div>
 </div>
 
 @section Scripts {

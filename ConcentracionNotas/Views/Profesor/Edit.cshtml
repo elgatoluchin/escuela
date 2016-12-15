@@ -4,53 +4,45 @@
     ViewBag.Title = "Editar Profesor";
 }
 
-<div class="panel panel-default" style="width: 600px;">
-    <div class="panel-heading">
-        <div class="panel-title">@ViewBag.Title</div>
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <h5>@ViewBag.Title<small></small></h5>
     </div>
-    @using (Html.BeginForm(null, null, FormMethod.Post, new {@class = "form-horizontal"})) {
-    <div class="panel-body">
-        @Html.ValidationSummary(true)
+    <div class="ibox-content">
+     @using (Html.BeginForm())
+     {
 
-        @Html.HiddenFor(model => model.ProfesorId)
+         @Html.ValidationSummary(true)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProfesorRut, null, new { @class = "col-sm-3 control-label" })
-            <div class="col-sm-9">
-                @Html.TextBoxFor(model => model.ProfesorRut, null, new { @class = "form-control" })
-                <span class="help-block">@Html.ValidationMessageFor(model => model.ProfesorRut)</span>
-            </div>
-        </div>
+         @Html.HiddenFor(model => model.ProfesorId)
+         @Html.HiddenFor(model => model.ProfesorRut)
+         @Html.HiddenFor(model => model.ProfesorRutDigito)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProfesorRutDigito, null, new { @class = "col-sm-3 control-label" })
-            <div class="col-sm-9">
-                @Html.TextBoxFor(model => model.ProfesorRutDigito, null, new { @class = "form-control" })
-                <span class="help-block">@Html.ValidationMessageFor(model => model.ProfesorRutDigito)</span>
-            </div>
-        </div>
+         <div class="form-group">
+             @Html.LabelFor(model => model.ProfesorNombre, null, new { @class = "control-label" })
+             <div>
+                 @Html.TextBoxFor(model => model.ProfesorNombre, null, new { @class = "form-control" })
+                 <span class="help-block">@Html.ValidationMessageFor(model => model.ProfesorNombre)</span>
+             </div>
+         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProfesorNombre, null, new {@class = "col-sm-3 control-label"})
-            <div class="col-sm-9">
-                @Html.TextBoxFor(model => model.ProfesorNombre, null, new {@class = "form-control"})
-                <span class="help-block">@Html.ValidationMessageFor(model => model.ProfesorNombre)</span>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProfesorApellido, null, new { @class = "col-sm-3 control-label" })
-            <div class="col-sm-9">
-                @Html.TextBoxFor(model => model.ProfesorApellido, null, new { @class = "form-control" })
-                <span class="help-block">@Html.ValidationMessageFor(model => model.ProfesorApellido)</span>
-            </div>
-        </div>
+         <div class="form-group">
+             @Html.LabelFor(model => model.ProfesorApellido, null, new { @class = "control-label" })
+             <div>
+                 @Html.TextBoxFor(model => model.ProfesorApellido, null, new { @class = "form-control" })
+                 <span class="help-block">@Html.ValidationMessageFor(model => model.ProfesorApellido)</span>
+             </div>
+         </div>
+         
+         <div class="hr-line-dashed"></div>
+         <div class="form-group">
+             <div class="text-right">
+                 @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-white" })
+                 <input type="submit" class="btn btn-primary" value="Guardar"/>
+             </div>
+         </div>
+     }
     </div>
-    <div class="panel-footer text-right">
-        <input type="submit" class="btn btn-primary" value="Guardar"/>
-        @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn" })
-    </div>
-    }
 </div>
 
 @section Scripts {

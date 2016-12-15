@@ -40,8 +40,16 @@ namespace ConcentracionNotas.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.AlumnoId = new SelectList(db.Alumno, "AlumnoId", "AlumnoRutDigito");
-            ViewBag.AsignaturaId = new SelectList(db.Asignatura, "AsignaturaId", "AsignaturaNombre");
+
+            ViewBag.AlumnoId =
+                new SelectList(
+                    (from o in db.Alumno select new { o.AlumnoId, Nombre = o.AlumnoNombre + " " + o.AlumnoApellido }),
+                    "AlumnoId", "Nombre", "-");
+
+            ViewBag.AsignaturaId =
+                new SelectList((from o in db.Asignatura select new { o.AsignaturaId, Nombre = o.AsignaturaNombre }),
+                    "AsignaturaId", "Nombre", "-");
+
             return View();
         }
 
@@ -53,13 +61,42 @@ namespace ConcentracionNotas.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Concentracion.AddObject(concentracion);
+                var concent = new Concentracion
+                {
+                    AsignaturaId = concentracion.AsignaturaId,
+                    AlumnoId = concentracion.AlumnoId
+                };
+
+                db.Concentracion.AddObject(concent);
                 db.SaveChanges();
+
+                for (var i = 0; i < 4; i++)
+                {
+                    var nota = new Nota
+                    {
+                        ConcentFolio = concent.ConcentFolio,
+                        NotaNumero = Convert.ToInt16(i+1),
+                        NotaPonderacion = 25,
+                        NotaObtenido = 0
+                    };
+
+                    db.Nota.AddObject(nota);
+                    db.SaveChanges();
+                }
+
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AlumnoId = new SelectList(db.Alumno, "AlumnoId", "AlumnoRutDigito", concentracion.AlumnoId);
-            ViewBag.AsignaturaId = new SelectList(db.Asignatura, "AsignaturaId", "AsignaturaNombre", concentracion.AsignaturaId);
+            ViewBag.AlumnoId =
+                new SelectList(
+                    (from o in db.Alumno select new {o.AlumnoId, Nombre = o.AlumnoNombre + " " + o.AlumnoApellido}),
+                    "AlumnoId", "Nombre", "-");
+
+            ViewBag.AsignaturaId =
+                new SelectList((from o in db.Asignatura select new {o.AsignaturaId, Nombre = o.AsignaturaNombre}),
+                    "AsignaturaId", "Nombre", "-");
+
+
             return View(concentracion);
         }
 
@@ -73,8 +110,6 @@ namespace ConcentracionNotas.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.AlumnoId = new SelectList(db.Alumno, "AlumnoId", "AlumnoRutDigito", concentracion.AlumnoId);
-            ViewBag.AsignaturaId = new SelectList(db.Asignatura, "AsignaturaId", "AsignaturaNombre", concentracion.AsignaturaId);
             return View(concentracion);
         }
 
@@ -86,13 +121,12 @@ namespace ConcentracionNotas.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Concentracion.Attach(concentracion);
-                db.ObjectStateManager.ChangeObjectState(concentracion, EntityState.Modified);
+                Concentracion modelo = db.Concentracion.Single(c => c.ConcentFolio == concentracion.ConcentFolio);
+                modelo.ConcentAsistencia = concentracion.ConcentAsistencia;
+                db.ObjectStateManager.ChangeObjectState(modelo, EntityState.Modified);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.AlumnoId = new SelectList(db.Alumno, "AlumnoId", "AlumnoRutDigito", concentracion.AlumnoId);
-            ViewBag.AsignaturaId = new SelectList(db.Asignatura, "AsignaturaId", "AsignaturaNombre", concentracion.AsignaturaId);
             return View(concentracion);
         }
 

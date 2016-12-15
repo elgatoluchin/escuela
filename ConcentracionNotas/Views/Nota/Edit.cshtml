@@ -4,56 +4,61 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
 
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <h5>@ViewBag.Title<small></small></h5>
+    </div>
+    <div class="ibox-content">
+        
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
 
-    <fieldset>
-        <legend>Nota</legend>
+            @Html.HiddenFor(model => model.NotaId)
 
-        @Html.HiddenFor(model => model.NotaId)
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ConcentFolio, "Concentracion")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("ConcentFolio", String.Empty)
+                @Html.ValidationMessageFor(model => model.ConcentFolio)
+            </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ConcentFolio, "Concentracion")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("ConcentFolio", String.Empty)
-            @Html.ValidationMessageFor(model => model.ConcentFolio)
-        </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.NotaNumero)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.NotaNumero)
+                @Html.ValidationMessageFor(model => model.NotaNumero)
+            </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.NotaNumero)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.NotaNumero)
-            @Html.ValidationMessageFor(model => model.NotaNumero)
-        </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.NotaPonderacion)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.NotaPonderacion)
+                @Html.ValidationMessageFor(model => model.NotaPonderacion)
+            </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.NotaPonderacion)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.NotaPonderacion)
-            @Html.ValidationMessageFor(model => model.NotaPonderacion)
-        </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.NotaObtenido)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.NotaObtenido)
+                @Html.ValidationMessageFor(model => model.NotaObtenido)
+            </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.NotaObtenido)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.NotaObtenido)
-            @Html.ValidationMessageFor(model => model.NotaObtenido)
-        </div>
+            <div class="hr-line-dashed"></div>
+            <div class="form-group">
+                <div class="text-right">
+                    @Html.ActionLink("Cancelar", "Index", new {id = Model.ConcentFolio}, new {@class = "btn btn-white"})
+                    <input type="submit" class="btn btn-primary" value="Guardar"/>
+                </div>
+            </div>
 
-        <p>
-            <input type="submit" value="Save" />
-        </p>
-    </fieldset>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+        }
+    </div>
 </div>
 
 @section Scripts {

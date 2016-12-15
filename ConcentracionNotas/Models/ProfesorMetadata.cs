@@ -12,6 +12,9 @@ namespace ConcentracionNotas.Models
 
     public class ProfesorMetadata
     {
+        [Display(Name = "ID")]
+        public int ProfesorId { get; set; }
+
         [Display(Name = "RUT")]
         public int ProfesorRut { get; set; }
 
