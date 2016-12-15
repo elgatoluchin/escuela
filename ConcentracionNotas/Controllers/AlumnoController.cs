@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -142,9 +143,30 @@ namespace ConcentracionNotas.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Alumno alumno = db.Alumno.Single(a => a.AlumnoId == id);
-            db.Alumno.DeleteObject(alumno);
-            db.SaveChanges();
+            try
+            {
+                Alumno alumno = db.Alumno.Single(a => a.AlumnoId == id);
+                db.Alumno.DeleteObject(alumno);
+                db.SaveChanges();
+            }
+            catch (System.Data.UpdateException e)
+            {
+                var ex = e.GetBaseException() as SqlException;
+
+                if (ex != null)
+                {
+                    if (ex.Errors.Count > 0)
+                    {
+                        switch (ex.Errors[0].Number)
+                        {
+                            case 547:
+                                Danger("No puede eliminar esta alumno porque está siendo usada por otra entidad", true);
+                                break;
+                        }
+                    }
+                }
+            }
+
             return RedirectToAction("Index");
         }
 
