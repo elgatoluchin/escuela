@@ -16,9 +16,11 @@ namespace ConcentracionNotas.Controllers
         //
         // GET: /Nota/
 
-        public ActionResult Index()
+        public ActionResult Index(int id = 0)
         {
-            var nota = db.Nota.Include("Concentracion");
+            var nota = db.Nota.Include("Concentracion").Where(o => o.ConcentFolio == id);
+            ViewBag.Concentracion = db.Concentracion.Single(o => o.ConcentFolio == id);
+            
             return View(nota.ToList());
         }
 
@@ -86,7 +88,36 @@ namespace ConcentracionNotas.Controllers
                 db.Nota.Attach(nota);
                 db.ObjectStateManager.ChangeObjectState(nota, EntityState.Modified);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                Concentracion concent = db.Concentracion.Single(o => o.ConcentFolio == nota.ConcentFolio);
+
+                var notas = db.Nota.Include("Concentracion").Where(o => o.ConcentFolio == nota.ConcentFolio);
+
+                decimal total = 0;
+                int validas = 0;
+                foreach (var nta in notas.ToList())
+                {
+                    validas += (null == nta.NotaObtenido || 0 == nta.NotaObtenido) ? 0 : 1;
+                    total += nta.NotaObtenido ?? 0;
+                }
+
+                decimal promedio = (total > 0) ? total / 4 : 0;
+
+                concent.ConcentPromedio = promedio;
+
+                if (4 == validas)
+                {
+                    concent.ConcentSituacion = Convert.ToInt16((promedio < 4.0M) ? 2 : 1);
+                }
+                else
+                {
+                    concent.ConcentSituacion = 0;
+                }
+
+                db.ObjectStateManager.ChangeObjectState(concent, EntityState.Modified);
+                db.SaveChanges();
+
+                return RedirectToAction("Index", new {id = nota.ConcentFolio});
             }
             ViewBag.ConcentFolio = new SelectList(db.Concentracion, "ConcentFolio", "ConcentFolio", nota.ConcentFolio);
             return View(nota);

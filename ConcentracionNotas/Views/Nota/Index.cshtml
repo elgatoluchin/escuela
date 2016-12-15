@@ -1,51 +1,63 @@
-﻿@model IEnumerable<ConcentracionNotas.Models.Nota>
+﻿@using ConcentracionNotas.Models
+@model IEnumerable<ConcentracionNotas.Models.Nota>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Notas";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Concentracion.ConcentFolio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NotaNumero)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NotaPonderacion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NotaObtenido)
-        </th>
-        <th></th>
-    </tr>
+<div class="text-right">
+    @String.Format("{0} {1}", ViewBag.Concentracion.Alumno.AlumnoNombre, ViewBag.Concentracion.Alumno.AlumnoApellido)
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Concentracion.ConcentFolio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NotaNumero)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NotaPonderacion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NotaObtenido)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.NotaId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.NotaId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.NotaId })
-        </td>
-    </tr>
-}
+<div class="panel panel-default">
+    <div class="panel-heading">@ViewBag.Concentracion.Asignatura.AsignaturaNombre</div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+          <dt>Docente</dt>
+          <dd>@String.Format("{0} {1}", ViewBag.Concentracion.Asignatura.Profesor.ProfesorNombre, ViewBag.Concentracion.Asignatura.Profesor.ProfesorApellido)</dd>
+        </dl>
+        <table class="table table-striped table-bordered table-hover">
+            <tr>
+                <th>Número de Evaluaciones</th>
+                <th>Ponderación</th>
+                <th>Nota</th>
+                <th></th>
+            </tr>
 
-</table>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.NotaNumero)</td>
+                    <td>@String.Format("{0}%", item.NotaPonderacion)</td>
+                    <td>@Html.DisplayFor(modelItem => item.NotaObtenido)</td>
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new { id = item.NotaId })
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <div>
+            <table class="table">
+                <tbody>
+                <tr>
+                    <td style="width: 90px;"><b>Nota Final</b></td>
+                    <td style="width: 100px;">@ViewBag.Concentracion.ConcentPromedio</td>
+                    <td style="width: 120px;"><b>% Asistencia</b></td>
+                    <td>@ViewBag.Concentracion.ConcentAsistencia</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><b>Situación Final</b></td>
+                    <td>@ViewBag.Concentracion.ConcentSituacion</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+

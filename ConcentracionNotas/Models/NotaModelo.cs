@@ -5,7 +5,8 @@ using System.Web;
 
 namespace ConcentracionNotas.Models
 {
-    public class NotaModelo
+    public class NotaModelo : Nota
     {
+
     }
 }

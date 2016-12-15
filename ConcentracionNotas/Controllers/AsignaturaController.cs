@@ -40,8 +40,6 @@ namespace ConcentracionNotas.Controllers
 
         public ActionResult Create()
         {
-            //ViewBag.ProfesorId = new SelectList(db.Profesor, "ProfesorId", "ProfesorNombre");
-
             ViewBag.ProfesorId =
                 new SelectList(
                     (from s in db.Profesor
@@ -64,7 +62,12 @@ namespace ConcentracionNotas.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ProfesorId = new SelectList(db.Profesor, "ProfesorId", "ProfesorRutDigito", asignatura.ProfesorId);
+            ViewBag.ProfesorId =
+                new SelectList(
+                    (from s in db.Profesor
+                     select new { s.ProfesorId, Nombre = s.ProfesorNombre + " " + s.ProfesorApellido }
+                        ), "ProfesorId", "Nombre", "-");
+
             return View(asignatura);
         }
 
