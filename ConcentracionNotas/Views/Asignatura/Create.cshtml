@@ -12,12 +12,14 @@
     };
 }
 
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <h5>@ViewBag.Title<small></small></h5>
+    </div>
+    <div class="ibox-content">
 
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        <legend>Asignatura</legend>
+        @using (Html.BeginForm()) {
+            @Html.ValidationSummary(true)
 
         <div class="form-group">
             @Html.LabelFor(model => model.ProfesorId, null, new {@class = "control-label"})
@@ -42,13 +44,22 @@
                 <span class="help-block">@Html.ValidationMessageFor(model => model.AsignaturaTipo)</span>
             </div>
         </div>
+            
+        <div class="hr-line-dashed"></div>
+		<div class="form-group">
+		    <div class="text-right">
+		        @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-white" })
+		        <input type="submit" class="btn btn-primary" value="Guardar"/>
+		    </div>
+		</div>
+            
+        }
 
-        <div class="text-right">
-            <input type="submit" class="btn btn-primary" value="Guardar"/>
-             @Html.ActionLink("Cancelar", "Index", null, new {@class = "btn"})
-        </div>
-    </fieldset>
-}
+    </div>
+</div>
+
+
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

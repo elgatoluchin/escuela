@@ -17,7 +17,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-<body>
+<body style="background: #f3f3f4;">
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -41,15 +41,36 @@
     </nav>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
+            <div class="col-sm-3 col-md-2 sidebar" style="background: #2f4050;">
                 <ul class="nav nav-sidebar">
-                    <li>@Html.ActionLink("Inicio", "Index", "Concentracion")</li>
-                    <li>@Html.ActionLink("Profesor", "Index", "Profesor")</li>
-                    <li>@Html.ActionLink("Alumno", "Index", "Alumno")</li>
-                    <li>@Html.ActionLink("Asignatura", "Index", "Asignatura")</li>
+                    <li>
+                        <a href="@Url.Action("Index", "Concentracion")">
+                            <i class="fa fa-id-card-o"></i>
+                            <span>Concentración de Notas</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Profesor")">
+                            <i class="fa fa-graduation-cap"></i>
+                            <span>Profesores</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Alumno")">
+                            <i class="fa fa-user"></i>
+                            <span>Alumnos</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Asignatura")">
+                            <i class="fa fa-bookmark-o"></i>
+                            <span>Asignaturas</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                @{ Html.RenderPartial("_Alerts");  }
                 @RenderBody()
             </div>
         </div>

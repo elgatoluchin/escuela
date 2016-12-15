@@ -10,7 +10,7 @@ using Inacap.Infraestructura.Utilidad;
 
 namespace ConcentracionNotas.Controllers
 {
-    public class ProfesorController : Controller
+    public class ProfesorController : BaseController
     {
         private ModeloEntities db = new ModeloEntities();
 
@@ -49,28 +49,43 @@ namespace ConcentracionNotas.Controllers
         [HttpPost]
         public ActionResult Create(ProfesorModelo profesor)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var modelo = new Profesor
+                if (ModelState.IsValid)
                 {
-                    ProfesorNombre = profesor.ProfesorNombre,
-                    ProfesorApellido = profesor.ProfesorApellido
-                };
+                    var modelo = new Profesor
+                    {
+                        ProfesorNombre = profesor.ProfesorNombre,
+                        ProfesorApellido = profesor.ProfesorApellido
+                    };
 
-                var run = (new RolUnicoVerificador(new RolUnicoNacional() {Rut = profesor.RolUnico}));
+                    var run = (new RolUnicoVerificador(new RolUnicoNacional() {Rut = profesor.RolUnico}));
 
-                if (run.EsValido())
-                {
-                    modelo.ProfesorRut = run.ObtenerRolUnico().Numero;
-                    modelo.ProfesorRutDigito = run.ObtenerRolUnico().DigitoVerificador;
+                    if (run.EsValido())
+                    {
+                        var numb = run.ObtenerRolUnico().Numero;
+                        var prof = db.Profesor.SingleOrDefault(o => o.ProfesorRut == numb);
 
-                    db.Profesor.AddObject(modelo);
-                    db.SaveChanges();
+                        if (prof != null)
+                        {
+                            Danger("El profesor ya existe", true);
+                        }
+                        else
+                        {
+                            modelo.ProfesorRut = run.ObtenerRolUnico().Numero;
+                            modelo.ProfesorRutDigito = run.ObtenerRolUnico().DigitoVerificador;
 
-                    return RedirectToAction("Index");
+                            db.Profesor.AddObject(modelo);
+                            db.SaveChanges();
+
+                            return RedirectToAction("Index");
+                        }
+                    }
                 }
-
-                ModelState.AddModelError("RolUnico", run.ObtenerErrores()[0]);
+            }
+            catch (Exception ex)
+            {
+                Danger(ex.Message, true);
             }
 
             return View(profesor);

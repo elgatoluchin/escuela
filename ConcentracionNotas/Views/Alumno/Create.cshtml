@@ -1,57 +1,53 @@
-﻿@model ConcentracionNotas.Models.Alumno
+﻿@model ConcentracionNotas.Models.AlumnoModelo
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Crear Alumno";
 }
 
-<h2>Create</h2>
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <h5>@ViewBag.Title<small></small></h5>
+    </div>
+    <div class="ibox-content">
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
 
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
 
-    <fieldset>
-        <legend>Alumno</legend>
+            <div class="form-group">
+                @Html.LabelFor(model => model.RolUnico, null, new {@class = "control-label"})
+                <div>
+                    @Html.TextBoxFor(model => model.RolUnico, null, new {@class = "form-control"})
+                    <span class="help-block">@Html.ValidationMessageFor(model => model.RolUnico)</span>
+                </div>
+            </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.AlumnoRut)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.AlumnoRut)
-            @Html.ValidationMessageFor(model => model.AlumnoRut)
-        </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.AlumnoNombre, null, new {@class = "control-label"})
+                <div>
+                    @Html.TextBoxFor(model => model.AlumnoNombre, null, new {@class = "form-control"})
+                    <span class="help-block">@Html.ValidationMessageFor(model => model.AlumnoNombre)</span>
+                </div>
+            </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.AlumnoRutDigito)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.AlumnoRutDigito)
-            @Html.ValidationMessageFor(model => model.AlumnoRutDigito)
-        </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.AlumnoApellido, null, new {@class = "control-label"})
+                <div>
+                    @Html.TextBoxFor(model => model.AlumnoApellido, null, new {@class = "form-control"})
+                    <span class="help-block">@Html.ValidationMessageFor(model => model.AlumnoApellido)</span>
+                </div>
+            </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.AlumnoNombre)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.AlumnoNombre)
-            @Html.ValidationMessageFor(model => model.AlumnoNombre)
-        </div>
+            <div class="hr-line-dashed"></div>
+            <div class="form-group">
+                <div class="text-right">
+                    @Html.ActionLink("Cancelar", "Index", null, new {@class = "btn btn-white"})
+                    <input type="submit" class="btn btn-primary" value="Guardar"/>
+                </div>
+            </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.AlumnoApellido)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.AlumnoApellido)
-            @Html.ValidationMessageFor(model => model.AlumnoApellido)
-        </div>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+        }
+    </div>
 </div>
 
 @section Scripts {

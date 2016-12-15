@@ -81,7 +81,14 @@ namespace ConcentracionNotas.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ProfesorId = new SelectList(db.Profesor, "ProfesorId", "ProfesorRutDigito", asignatura.ProfesorId);
+
+            ViewBag.ProfesorId =
+                new SelectList(
+                    (from s in db.Profesor
+                     select new { s.ProfesorId, Nombre = s.ProfesorNombre + " " + s.ProfesorApellido }
+                        ), "ProfesorId", "Nombre", "-");
+
+
             return View(asignatura);
         }
 
@@ -98,7 +105,14 @@ namespace ConcentracionNotas.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ProfesorId = new SelectList(db.Profesor, "ProfesorId", "ProfesorRutDigito", asignatura.ProfesorId);
+
+            ViewBag.ProfesorId =
+                new SelectList(
+                    (from s in db.Profesor
+                     select new { s.ProfesorId, Nombre = s.ProfesorNombre + " " + s.ProfesorApellido }
+                        ), "ProfesorId", "Nombre", "-");
+
+
             return View(asignatura);
         }
 

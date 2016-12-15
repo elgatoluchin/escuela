@@ -6,13 +6,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ConcentracionNotas.Models;
+using Inacap.Infraestructura.Utilidad;
 
 namespace ConcentracionNotas.Controllers
 {
     /// <summary>
     /// hola
     /// </summary>
-    public class AlumnoController : Controller
+    public class AlumnoController : BaseController
     {
         private ModeloEntities db = new ModeloEntities();
 
@@ -49,13 +50,45 @@ namespace ConcentracionNotas.Controllers
         // POST: /Alumno/Create
 
         [HttpPost]
-        public ActionResult Create(Alumno alumno)
+        public ActionResult Create(AlumnoModelo alumno)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Alumno.AddObject(alumno);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    var modelo = new Alumno
+                    {
+                        AlumnoNombre = alumno.AlumnoNombre,
+                        AlumnoApellido = alumno.AlumnoApellido
+                    };
+
+                    var run = (new RolUnicoVerificador(new RolUnicoNacional() { Rut = alumno.RolUnico }));
+
+                    if (run.EsValido())
+                    {
+                        var numb = run.ObtenerRolUnico().Numero;
+                        var alumn = db.Alumno.SingleOrDefault(o => o.AlumnoRut == numb);
+
+                        if (alumn != null)
+                        {
+                            Danger("El alumno ya existe", true);
+                        }
+                        else
+                        {
+                            modelo.AlumnoRut = run.ObtenerRolUnico().Numero;
+                            modelo.AlumnoRutDigito = run.ObtenerRolUnico().DigitoVerificador;
+
+                            db.Alumno.AddObject(modelo);
+                            db.SaveChanges();
+
+                            return RedirectToAction("Index");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Danger(ex.Message, true);
             }
 
             return View(alumno);
