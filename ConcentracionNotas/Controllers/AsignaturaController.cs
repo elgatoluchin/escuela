@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -9,7 +11,7 @@ using ConcentracionNotas.Models;
 
 namespace ConcentracionNotas.Controllers
 {
-    public class AsignaturaController : Controller
+    public class AsignaturaController : BaseController
     {
         private ModeloEntities db = new ModeloEntities();
 
@@ -135,9 +137,31 @@ namespace ConcentracionNotas.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Asignatura asignatura = db.Asignatura.Single(a => a.AsignaturaId == id);
-            db.Asignatura.DeleteObject(asignatura);
-            db.SaveChanges();
+            try
+            {
+                Asignatura asignatura = db.Asignatura.Single(a => a.AsignaturaId == id);
+                db.Asignatura.DeleteObject(asignatura);
+                db.SaveChanges();
+            }
+            catch (System.Data.UpdateException e)
+            {
+                var ex = e.GetBaseException() as SqlException;
+
+                if (ex != null)
+                {
+                    if (ex.Errors.Count > 0)
+                    {
+                        switch (ex.Errors[0].Number)
+                        {
+                            case 547:
+                                Danger("No puede eliminar esta asignatura porque está siendo usada por otra entidad",
+                                    true);
+                                break;
+                        }
+                    }
+                }
+            }
+
             return RedirectToAction("Index");
         }
 
